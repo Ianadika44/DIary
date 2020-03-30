@@ -1,0 +1,24 @@
+<div class="container" style="background-color: rgb(42, 187, 6);">
+    <h1>My Diary</h1>
+    <hr>
+  
+    <div class="row">
+      <div class="col-md-6">
+        <div *ngFor='let diary of diaries;let i = index'>
+          <div>
+            <h6 id={{i}} appStrikethrough>{{diary.name}} due on {{diary.completeDate|date|uppercase}}</h6>
+            <button (click)='toggleDetails(i)' class="btn btn-primary">Toggle Details</button>
+          </div>
+  
+          <div *ngIf='diary.showDescription'>
+            <app-diary-detail [diary]='diary' (isComplete) = 'deleteDiary($event,i)'></app-diary-detail>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <app-diary-form (addDiary)="addNewDiaru($event)"></app-diary-form>
+   </div>
+    </div>
+  
+    <p *ngIf='diaries.length > 2'>You have too many diaries</p>
+  </div>
